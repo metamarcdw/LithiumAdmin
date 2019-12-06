@@ -54,7 +54,7 @@ class CaseAdmin(admin.ModelAdmin):
     )
     list_filter = (OpenCasesFilter, "priority", "severity", "report_me")
     list_editable = ("report_me",)
-    search_fields = ("salesforce_case", "title")
+    search_fields = ("salesforce_case", "title", "customer__name")
     ordering = ("severity", "priority", "-date_requested")
 
 
