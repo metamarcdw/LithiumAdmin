@@ -9,6 +9,13 @@ class CustomerAdmin(admin.ModelAdmin):
     list_display = ("name", "prod_version", "prod_hosting")
     list_filter = ("prod_hosting",)
 
+    def get_actions(self, request):
+        actions = super().get_actions(request)
+        if request.user.username[0].upper() != 'J':
+            if 'delete_selected' in actions:
+                del actions['delete_selected']
+        return actions
+
 
 class OpenCasesFilter(admin.SimpleListFilter):
     not_closed = "QUE,INP,NOT"
@@ -55,7 +62,14 @@ class CaseAdmin(admin.ModelAdmin):
     list_filter = (OpenCasesFilter, "priority", "severity", "report_me")
     list_editable = ("report_me",)
     search_fields = ("salesforce_case", "title", "customer__name")
-    ordering = ("severity", "priority", "-date_requested")
+    ordering = ("severity", "priority", "date_requested")
+
+    def get_actions(self, request):
+        actions = super().get_actions(request)
+        if request.user.username[0].upper() != 'J':
+            if 'delete_selected' in actions:
+                del actions['delete_selected']
+        return actions
 
 
 admin.site.register(Customer, CustomerAdmin)
