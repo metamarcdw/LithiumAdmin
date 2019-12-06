@@ -42,7 +42,7 @@ class Case(models.Model):
     SEV1 = "SEV1"
     SEV2 = "SEV2"
     SEV3 = "SEV3"
-    NONE = "NONE"
+    NONE = "SEVN"
     SEVERITY_CHOICES = [
         (SEV1, "Severity 1"),
         (SEV2, "Severity 2"),
