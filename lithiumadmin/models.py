@@ -42,10 +42,12 @@ class Case(models.Model):
     SEV1 = "SEV1"
     SEV2 = "SEV2"
     SEV3 = "SEV3"
+    NONE = "NONE"
     SEVERITY_CHOICES = [
         (SEV1, "Severity 1"),
         (SEV2, "Severity 2"),
         (SEV3, "Severity 3"),
+        (NONE, "None"),
     ]
 
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
