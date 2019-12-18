@@ -7,7 +7,8 @@ class Customer(models.Model):
     SAAS = "SAA"
     HOSTING_CHOICES = [(ON_PREMISE, "On-Premise"), (HOSTED, "Hosted"), (SAAS, "SaaS")]
 
-    name = models.CharField(max_length=50, unique=True)
+    name = models.CharField(max_length=100)
+    salesforce_name = models.CharField(max_length=100, unique=True)
     prod_hosting = models.CharField(max_length=3, choices=HOSTING_CHOICES, default=SAAS)
     prod_version = models.CharField(max_length=10)
 
