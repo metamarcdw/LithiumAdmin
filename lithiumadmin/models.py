@@ -16,6 +16,16 @@ class Customer(models.Model):
         return f"{on_prem}{self.name}"
 
 
+class KnownBug(models.Model):
+    jira_case = models.CharField(max_length=20, unique=True)
+    description = models.TextField()
+    affected_versions = models.CharField(max_length=100)
+    fix_versions = models.CharField(max_length=100, default="Not fixed")
+
+    def __str__(self):
+        return self.jira_case
+
+
 class Case(models.Model):
     QUEUED = "QUE"
     IN_PROGRESS = "INP"
@@ -50,7 +60,7 @@ class Case(models.Model):
         (NONE, "None"),
     ]
 
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    customer = models.ForeignKey(Customer, related_name="customer_cases", on_delete=models.CASCADE)
 
     title = models.CharField(max_length=100)
     salesforce_case = models.CharField(max_length=10, unique=True)
@@ -72,6 +82,7 @@ class Case(models.Model):
     developer_notes = models.TextField(blank=True)
     my_notes = models.TextField(blank=True)
 
+    associated_bug = models.ForeignKey(KnownBug, related_name="bug_cases", on_delete=models.PROTECT, blank=True, null=True)
     report_me = models.BooleanField(default=False)
 
     def __str__(self):

@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.db.models.fields.mixins import NOT_PROVIDED
 from django.utils.encoding import force_text
 
-from .models import Customer, Case
+from .models import Customer, KnownBug, Case
 
 
 class CustomerAdmin(admin.ModelAdmin):
@@ -48,6 +48,18 @@ class OpenCasesFilter(admin.SimpleListFilter):
             }
 
 
+class KnownBugAdmin(admin.ModelAdmin):
+    list_display = ("jira_case", "affected_versions", "fix_versions")
+    search_fields = ("jira_case", "description", "affected_versions")
+
+    def get_actions(self, request):
+        actions = super().get_actions(request)
+        if request.user.username[0].upper() != 'J':
+            if 'delete_selected' in actions:
+                del actions['delete_selected']
+        return actions
+
+
 class CaseAdmin(admin.ModelAdmin):
     list_display = (
         "salesforce_case",
@@ -73,4 +85,5 @@ class CaseAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Customer, CustomerAdmin)
+admin.site.register(KnownBug, KnownBugAdmin)
 admin.site.register(Case, CaseAdmin)
