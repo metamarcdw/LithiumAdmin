@@ -51,8 +51,8 @@ class OpenCasesFilter(admin.SimpleListFilter):
 
 
 class KnownBugAdmin(admin.ModelAdmin):
-    list_display = ("jira_case", "affected_versions", "fix_versions")
-    search_fields = ("jira_case", "description", "affected_versions")
+    list_display = ("jira_case", "title", "affected_versions", "fix_versions")
+    search_fields = ("jira_case", "title", "description", "affected_versions")
 
     def get_actions(self, request):
         actions = super().get_actions(request)

@@ -19,6 +19,7 @@ class Customer(models.Model):
 
 class KnownBug(models.Model):
     jira_case = models.CharField(max_length=20, unique=True)
+    title = models.CharField(max_length=100)
     description = models.TextField()
     affected_versions = models.CharField(max_length=100)
     fix_versions = models.CharField(max_length=100, default="Not fixed")
