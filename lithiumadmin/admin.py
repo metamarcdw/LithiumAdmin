@@ -6,8 +6,8 @@ from .models import Customer, KnownBug, Case
 
 
 class CustomerAdmin(admin.ModelAdmin):
-    list_display = ("name", "salesforce_name", "prod_version", "prod_hosting")
-    list_filter = ("prod_version", "prod_hosting",)
+    list_display = ("name", "salesforce_name", "prod_version", "prod_hosting", "datacenter", "database_type")
+    list_filter = ("prod_version", "prod_hosting", "datacenter", "database_type")
     search_fields = ("name", "salesforce_name")
     ordering = ("name",)
 
