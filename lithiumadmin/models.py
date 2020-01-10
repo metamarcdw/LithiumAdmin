@@ -11,7 +11,7 @@ class Customer(models.Model):
     LAS_VEGAS = "LV"
     AMSTERDAM = "EU"
     CALGARY = "CA"
-    STATUS_CHOICES = [
+    DC_CHOICES = [
         (SOUTHFIELD, "Southfield"),
         (LAS_VEGAS, "Las Vegas"),
         (AMSTERDAM, "Amsterdam"),
@@ -24,10 +24,10 @@ class Customer(models.Model):
 
     name = models.CharField(max_length=100)
     salesforce_name = models.CharField(max_length=100, unique=True)
-    prod_hosting = models.CharField(max_length=3, choices=HOSTING_CHOICES, default=SAAS)
     prod_version = models.CharField(max_length=10)
-    datacenter = models.CharField(max_length=2, choices=HOSTING_CHOICES, blank=True)
-    database_type = models.CharField(max_length=2, choices=DBMS_CHOICES, blank=True)
+    prod_hosting = models.CharField(max_length=3, choices=HOSTING_CHOICES, default=SAAS)
+    datacenter = models.CharField(max_length=2, choices=DC_CHOICES, default=SOUTHFIELD, blank=True)
+    database_type = models.CharField(max_length=2, choices=DBMS_CHOICES, default=ORACLE, blank=True)
     
 
     def __str__(self):
